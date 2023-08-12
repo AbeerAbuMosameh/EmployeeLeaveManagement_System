@@ -13,6 +13,7 @@
                 @can('leaves-request-create')
                     <form method="POST" action="{{ route("leaves_request.store") }}" enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" name="employee_id" value="{{\App\Models\Employee::where('email',auth()->user()->email)->pluck('id')}}">
                         <div class="form-group row pt-4">
                             <div class="col-lg-6">
                                 <label for="duration">Duration<span class="text-danger">*</span></label>
@@ -27,8 +28,7 @@
                                     <x-input-group icon="flaticon-clock-1"></x-input-group>
                                     <select class="form-control {{ $errors->has('duration_unit') ? 'is-invalid' : '' }}"
                                             name="duration_unit" id="duration_unit">
-                                        <option value="" disabled>Select Type Leave</option>
-                                        'hours', 'days', 'weeks', 'months
+                                        <option value="" disabled selected>Select Type Leave</option>
                                         <option value="hours" {{ old('duration_unit') === 'hours' ? 'selected' : '' }}>
                                             Hours
                                         </option>
@@ -41,6 +41,11 @@
                                             Months
                                         </option>
                                     </select>
+                                    @if($errors->has('duration_unit'))
+                                        <div class="invalid-feedback">
+                                            {{ $errors->first('duration_unit') }}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -75,18 +80,19 @@
                                     <x-input-group icon="flaticon2-file"></x-input-group>
                                     <select class="form-control {{ $errors->has('leave_type') ? 'is-invalid' : '' }}"
                                             name="leave_type" id="leave_type">
-                                        <option value="" disabled>Select Type Leave</option>
+                                        <option value="" disabled selected>Select Type Leave</option>
                                         @foreach($leave_types as $leave_type)
                                         <option value="{{$leave_type->name}}">{{$leave_type->name}}
                                         </option>
                                         @endforeach
                                     </select>
-                                </div>
-                                @if ($errors->has('leave_type'))
-                                    <span class="invalid-feedback" role="alert">
+                                    @if ($errors->has('leave_type'))
+                                        <span class="invalid-feedback" role="alert">
                                         {{ $errors->first('leave_type') }}
                                     </span>
-                                @endif
+                                    @endif
+                                </div>
+
                             </div>
                         </div>
 

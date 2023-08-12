@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\EmployeeController;
+use App\Http\Controllers\Admin\EmployeesRequestsController;
 use App\Http\Controllers\Admin\LeaveTypeController;
 use App\Http\Controllers\Employee\EmployeesLeaveRequestsController;
-use App\Http\Controllers\EmployeesRequestsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 

@@ -72,7 +72,6 @@ class EmployeeController extends Controller
                 'role' => 'employee',
             ]);
 
-
             $employeeRole = Role::where('name', 'employee')->first();
             $user->assignRole($employeeRole);
 

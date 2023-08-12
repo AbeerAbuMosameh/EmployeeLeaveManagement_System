@@ -62,7 +62,7 @@
 
                                                 </a>
                                             @endcan
-                                            @can('team-delete')
+                                            @can('leaves-delete')
                                                 <a onclick="sweet('{{$leave_type->id}}',this)"
                                                    class="btn btn-sm btn-clean btn-icon btn-delete " title="Delete">
                                                     <i class="nav-icon la la-trash"></i>
