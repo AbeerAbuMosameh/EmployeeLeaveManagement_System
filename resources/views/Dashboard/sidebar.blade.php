@@ -206,7 +206,16 @@
                                             <span class="menu-text">leaves Requests</span>
                                         </a>
                                     </li>
-
+                                    @can('leaves-request-create')
+                                        <li class="menu-item" aria-haspopup="true">
+                                            <a href="{{route('leaves_request.create')}}" class="menu-link">
+                                                <i class="menu-bullet menu-bullet-dot">
+                                                    <span></span>
+                                                </i>
+                                                <span class="menu-text">Add leave Request</span>
+                                            </a>
+                                        </li>
+                                    @endcan
 
                                 </ul>
                             </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
+use App\Models\EmployeesLeaveRequests;
 use App\Models\LeaveType;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -28,6 +29,9 @@ class LeaveTypeController extends Controller
      */
     public function index()
     {
+        if (Gate::denies('leaves-list', LeaveType::class)) {
+            abort(404);
+        }
         $leave_types = LeaveType::all();
         return view('Admin.leave_types.index', compact('leave_types'));
 
@@ -109,6 +113,11 @@ class LeaveTypeController extends Controller
      */
     public function destroy(LeaveType $leaveType)
     {
-        //
+        if (Gate::denies('leaves-delete', Employee::class)) {
+            abort(404);
+        }
+
+        LeaveType::findOrFail($leaveType->id)->delete();
+        return response()->json(['message' => 'Leave Type deleted.']);
     }
 }
